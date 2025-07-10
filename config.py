@@ -18,12 +18,12 @@ import time
 
 class Rkn_Botz(object):
     # Rkn client config (required)
-    API_ID = os.environ.get("API_ID", "")
-    API_HASH = os.environ.get("API_HASH", "")
+    API_ID = os.environ.get("API_ID", "26649585")
+    API_HASH = os.environ.get("API_HASH", "588a3ea6fd01ae88bd2e10fed7d55b2c")
     BOT_TOKEN = os.environ.get("BOT_TOKEN", "")
 
     # Start pic (default image link)
-    RKN_PIC = os.environ.get("RKN_PIC", "https://telegra.ph/file/21a8e96b45cd6ac4d3da6.jpg")
+    RKN_PIC = os.environ.get("RKN_PIC", "https://i.imgur.com/P4yykLb.jpeg")
 
     # Bot uptime (start time)
     BOT_UPTIME = time.time()
@@ -32,16 +32,16 @@ class Rkn_Botz(object):
     PORT = int(os.environ.get("PORT", "8080"))
 
     # Force subscribe channel username (without @) (only public chats username required)
-    FORCE_SUB = os.environ.get("FORCE_SUB", "Rkn_Botz")
+    FORCE_SUB = os.environ.get("FORCE_SUB", "RMxBots")
 
     # Database config (required)
     DB_NAME = os.environ.get("DB_NAME", "AutoCaption_V05_Bot")
-    DB_URL = os.environ.get("DB_URL", "")
+    DB_URL = os.environ.get("DB_URL", "mongodb+srv://rohanahamed75:gt4RXJZ1mUtOh4Xv@mmtg.0ong5.mongodb.net/?retryWrites=true&w=majority&appName=mmtg")
 
     # Default caption (with safe fallback)
     DEFAULT_CAPTION = os.environ.get(
         "DEFAULT_CAPTION",
-        "<b><a href='https://t.me/Rkn_Botz'>{file_name} Main Telegram Channel: @Rkn_Bots_Updates</a></b>"
+        "<b><a href='https://t.me/RM_Movie_Flix'>{file_name} Movie Update Channel: @RM_Movi</a></b>"
     )
 
     # Sticker ID default
@@ -51,7 +51,7 @@ class Rkn_Botz(object):
     )
 
     # Admin ID (single integer)
-    ADMIN = int(os.environ.get('ADMIN', '5960922591'))  # Yahan default ko apne Telegram User ID se replace karo
+    ADMIN = int(os.environ.get('ADMIN', '7822720438'))  # Yahan default ko apne Telegram User ID se replace karo
 
 # ————
 # End of file
