@@ -1,25 +1,11 @@
-# AutoCaptionBot by RknDeveloper
-# Copyright (c) 2024 RknDeveloper
-# Licensed under the MIT License
-# https://github.com/RknDeveloper/Rkn-AutoCaptionBot/blob/main/LICENSE
-# Please retain this credit when using or forking this code.
-
-# Developer Contacts:
-# Telegram: @RknDeveloperr
-# Updates Channel: @Rkn_Bots_Updates & @Rkn_Botz
-# Special Thanks To: @ReshamOwner
-# Update Channels: @Digital_Botz & @DigitalBotz_Support
-
-# ⚠️ Please do not remove this credit!
-
-
 from pyrogram import Client, filters, enums
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from pyrogram.errors import UserNotParticipant
 from config import Rkn_Botz as Config
 from .database import rkn_botz
 
-# 🧠 Async callable filter class
+
+# ✅ Async callable filter class for force subscription
 class ForceSubCheck:
     def __init__(self, channel: str):
         self.channel = channel.lstrip("@")
@@ -35,22 +21,27 @@ class ForceSubCheck:
 
         try:
             member = await client.get_chat_member(self.channel, user_id)
-            return member.status in [enums.ChatMemberStatus.LEFT, enums.ChatMemberStatus.BANNED]
+            # ✅ Return False if user is a member
+            return member.status not in (
+                enums.ChatMemberStatus.MEMBER,
+                enums.ChatMemberStatus.ADMINISTRATOR,
+                enums.ChatMemberStatus.OWNER,
+            )
         except UserNotParticipant:
-            return True
+            return True  # ✅ Not joined
         except Exception:
-            return False
+            return False  # In case of unknown error, allow access (or you can block too)
 
 
-# 📩 Handler for blocked users / unsubscribed
+# ✅ Handler that sends join request if user not subscribed
 @Client.on_message(filters.private & filters.create(ForceSubCheck(Config.FORCE_SUB)))
 async def handle_force_sub(client: Client, message: Message):
     user_id = message.from_user.id
-    chat_link = f"https://t.me/{Config.FORCE_SUB.lstrip('@')}"
-    
-    # 📢 Button UI
+    channel_link = f"https://t.me/{Config.FORCE_SUB.lstrip('@')}"
+
+    # Button to join update channel
     button = InlineKeyboardMarkup(
-        [[InlineKeyboardButton("🔔 Join Update Channel", url=chat_link)]]
+        [[InlineKeyboardButton("🔔 Join Update Channel", url=channel_link)]]
     )
 
     try:
@@ -64,21 +55,7 @@ async def handle_force_sub(client: Client, message: Message):
     except Exception as e:
         return await message.reply_text(f"⚠️ Unexpected error: `{e}`")
 
-    # Default reply if not joined
     return await message.reply_text(
-        "**Hey buddy! 🔐 You need to join our updates channel before using me.**",
+        "**Hey buddy! 🔐 Please join our updates channel before using me.**",
         reply_markup=button
     )
-    
-# ————
-# End of file
-# Original author: @RknDeveloperr
-# GitHub: https://github.com/RknDeveloper
-
-# Developer Contacts:
-# Telegram: @RknDeveloperr
-# Updates Channel: @Rkn_Bots_Updates & @Rkn_Botz
-# Special Thanks To: @ReshamOwner
-# Update Channels: @Digital_Botz & @DigitalBotz_Support
-
-# ⚠️ Please do not remove this credit!
